@@ -15,6 +15,11 @@ assert(
 );
 
 assert(
+  manifest.permissions.includes('favicon'),
+  'manifest should request favicon permission'
+);
+
+assert(
   html.includes('id="bookmarksBarSection"'),
   'new tab page should include a Bookmarks bar section'
 );
@@ -27,6 +32,11 @@ assert(
 assert(
   app.includes('fetchBookmarksBar') && app.includes('chrome.bookmarks'),
   'app should load Chrome bookmarks bar data'
+);
+
+assert(
+  app.includes('/_favicon/') && !app.includes('google.com/s2/favicons'),
+  'app should use Chrome favicon URLs instead of Google favicon fallback'
 );
 
 assert(

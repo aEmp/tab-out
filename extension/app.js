@@ -289,7 +289,7 @@ function getFaviconUrl(url) {
   try {
     const parsed = new URL(url);
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '';
-    return `https://www.google.com/s2/favicons?domain=${parsed.hostname}&sz=16`;
+    return `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(url)}&size=16`;
   } catch {
     return '';
   }
@@ -1029,7 +1029,7 @@ async function renderDeferredColumn() {
 function renderDeferredItem(item) {
   let domain = '';
   try { domain = new URL(item.url).hostname.replace(/^www\./, ''); } catch {}
-  const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
+  const faviconUrl = getFaviconUrl(item.url);
   const ago = timeAgo(item.savedAt);
   const safeId = escapeHtml(item.id);
   const safeUrl = escapeHtml(item.url);
