@@ -47,6 +47,18 @@
   </div>
 
   <!-- ================================================================
+       BOOKMARKS BAR — mirrors Chrome's bookmarks bar above open tabs
+       ================================================================ -->
+  <div class="bookmarks-section" id="bookmarksBarSection" style="display:none">
+    <div class="section-header">
+      <h2>Bookmarks bar</h2>
+      <div class="section-line"></div>
+      <div class="section-count" id="bookmarksBarCount"></div>
+    </div>
+    <div class="bookmarks-strip" id="bookmarksBarList"></div>
+  </div>
+
+  <!-- ================================================================
        MAIN CONTENT AREA — two-column layout
        Left: open tabs (domain/mission cards)
        Right: saved for later checklist
@@ -95,21 +107,6 @@
     </div>
 
   </div><!-- end .dashboard-columns -->
-
-  <!-- ================================================================
-       FOOTER — global stats + refresh control
-       ================================================================ -->
-  <footer>
-    <div class="footer-stats">
-      <div class="stat">
-        <div class="stat-num" id="statTabs">—</div>
-        <div class="stat-label">Open tabs</div>
-      </div>
-    </div>
-    <div class="last-refresh">
-      <span style="color: var(--muted); font-size: 11px;"><a href="https://github.com/zarazhangrui/tab-out" target="_top" style="color: var(--muted); text-decoration: underline; text-underline-offset: 2px;">Tab Out</a> by <a href="https://x.com/zarazhangrui" target="_top" style="color: var(--muted); text-decoration: underline; text-underline-offset: 2px;">Zara</a></span>
-    </div>
-  </footer>
 
 </div><!-- end .container -->
 
