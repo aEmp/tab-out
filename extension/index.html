@@ -26,6 +26,22 @@
       <!-- "Friday, April 4, 2026" — written by getDateDisplay() in app.js -->
       <div class="date" id="dateDisplay"></div>
     </div>
+    <form class="google-search" id="googleSearch" autocomplete="off" role="search" aria-label="Search Google">
+      <button class="google-logo" type="button" data-action="open-google-search" aria-label="Open Google search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.2h6.4c-.3 1.4-1.1 2.6-2.3 3.4v2.8h3.7c2.2-2 3.7-4.9 3.7-8.2z"/>
+          <path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.7-2.8L16 18.4c-1 .7-2.3 1.1-4 1.1-3 0-5.5-2-6.4-4.7H1.8v2.9C3.8 21.4 7.7 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.4-.4-2.3s.1-1.6.4-2.3V7.3H1.8C1 8.9.5 10.7.5 12.5s.5 3.6 1.3 5.2l3.8-2.9z"/>
+          <path fill="#EA4335" d="M12 5.5c1.7 0 3.2.6 4.4 1.7l3.3-3.3C17.7 2.1 15.1 1 12 1 7.7 1 3.8 3.6 1.8 7.3l3.8 2.9c.9-2.7 3.4-4.7 6.4-4.7z"/>
+        </svg>
+      </button>
+      <input id="googleSearchInput" type="search" placeholder="Search Google" aria-label="Search Google">
+      <button class="google-submit" type="submit" data-action="submit-google-search" aria-label="Submit Google search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m1.1-5.15a6.25 6.25 0 1 1-12.5 0 6.25 6.25 0 0 1 12.5 0Z" />
+        </svg>
+      </button>
+    </form>
   </header>
 
   <!-- ================================================================

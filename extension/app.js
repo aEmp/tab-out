@@ -1253,6 +1253,57 @@ async function renderDashboard() {
   await renderStaticDashboard();
 }
 
+/* ----------------------------------------------------------------
+   GOOGLE SEARCH — quiet header shortcut
+   ---------------------------------------------------------------- */
+
+function getGoogleSearchElements() {
+  const form = document.getElementById('googleSearch');
+  const input = document.getElementById('googleSearchInput');
+  return { form, input };
+}
+
+function openGoogleSearch() {
+  const { form, input } = getGoogleSearchElements();
+  if (!form || !input) return;
+
+  const wasOpen = form.classList.contains('is-open');
+  form.classList.add('is-open');
+  if (!wasOpen) {
+    form.classList.add('is-rolling');
+    setTimeout(() => form.classList.remove('is-rolling'), 640);
+  }
+
+  const focusInput = () => {
+    input.focus({ preventScroll: true });
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+  };
+
+  focusInput();
+  requestAnimationFrame(focusInput);
+  setTimeout(focusInput, 180);
+}
+
+function closeGoogleSearchIfEmpty() {
+  const { form, input } = getGoogleSearchElements();
+  if (!form || !input || input.value.trim()) return;
+  form.classList.remove('is-open', 'is-rolling');
+}
+
+function submitGoogleSearch() {
+  const { input } = getGoogleSearchElements();
+  if (!input) return;
+
+  const query = input.value.trim();
+  if (!query) {
+    openGoogleSearch();
+    return;
+  }
+
+  window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
 
 /* ----------------------------------------------------------------
    EVENT HANDLERS — using event delegation
@@ -1262,12 +1313,33 @@ async function renderDashboard() {
    instead of one per door.
    ---------------------------------------------------------------- */
 
+document.addEventListener('pointerdown', (e) => {
+  const openTrigger = e.target.closest('[data-action="open-google-search"]');
+  if (!openTrigger) return;
+
+  e.preventDefault();
+  openGoogleSearch();
+});
+
 document.addEventListener('click', async (e) => {
   // Walk up the DOM to find the nearest element with data-action
   const actionEl = e.target.closest('[data-action]');
   if (!actionEl) return;
 
   const action = actionEl.dataset.action;
+
+  // ---- Header Google search ----
+  if (action === 'open-google-search') {
+    e.preventDefault();
+    openGoogleSearch();
+    return;
+  }
+
+  if (action === 'submit-google-search') {
+    e.preventDefault();
+    submitGoogleSearch();
+    return;
+  }
 
   // ---- Close duplicate Tab Out tabs ----
   if (action === 'close-tabout-dupes') {
@@ -1524,6 +1596,22 @@ document.addEventListener('click', (e) => {
   if (body) {
     body.style.display = body.style.display === 'none' ? 'block' : 'none';
   }
+});
+
+// ---- Header Google search submit + collapse ----
+document.addEventListener('submit', (e) => {
+  if (e.target.id !== 'googleSearch') return;
+  e.preventDefault();
+  submitGoogleSearch();
+});
+
+document.addEventListener('focusout', (e) => {
+  if (!e.target.closest('#googleSearch')) return;
+
+  setTimeout(() => {
+    const { form } = getGoogleSearchElements();
+    if (!form?.contains(document.activeElement)) closeGoogleSearchIfEmpty();
+  }, 0);
 });
 
 // ---- Archive search — filter archived items as user types ----
